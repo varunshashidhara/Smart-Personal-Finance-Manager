@@ -77,4 +77,5 @@ Make sure you have Node.js and MongoDB installed on your local machine.
 - `/api/upload` - CSV file uploading for bulk transaction imports.
 
 ## License
-[ISC License](LICENSE)
+This project is licensed under the MIT License. 
+Developed By Varun S
