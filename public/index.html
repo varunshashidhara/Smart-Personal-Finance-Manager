@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Personal Finance Manager</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Background Animated Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-screen" class="screen full-center active">
+        <!-- Navbar for auth screen -->
+        <nav class="auth-nav glass-panel">
+            <div class="logo">
+                <i class="fa-solid fa-wallet"></i>
+                <span>SmartFinance</span>
+            </div>
+        </nav>
+
+        <div class="auth-container glass-panel">
+
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="login-tab">Login</button>
+                <button class="tab-btn" id="register-tab">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Enter your details to access your dashboard.</p>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="login-email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Log In <i
+                        class="fa-solid fa-arrow-right"></i></button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <h2>Create Account</h2>
+                <p class="subtitle">Start managing your finances intelligently.</p>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="reg-email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="reg-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up <i
+                        class="fa-solid fa-arrow-right"></i></button>
+            </form>
+
+            <div id="auth-error" class="error-msg"></div>
+
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard-screen" class="screen">
+
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <i class="fa-solid fa-wallet"></i>
+                <span>SmartFinance</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="active" data-target="overview"><i class="fa-solid fa-chart-pie"></i> Overview</li>
+                <li data-target="transactions"><i class="fa-solid fa-list-ul"></i> Transactions</li>
+                <li data-target="goals"><i class="fa-solid fa-bullseye"></i> Goals</li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-outline"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Topbar -->
+            <header class="topbar glass-panel">
+                <h1 id="page-title">Dashboard Overview</h1>
+                <div class="user-profile">
+                    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                    <span id="user-display-name">User</span>
+                </div>
+            </header>
+
+            <div id="notification-area"></div>
+
+            <!-- OVERVIEW VIEW -->
+            <div id="view-overview" class="view active">
+                <!-- Summary Cards -->
+                <div class="cards-grid">
+                    <div class="stat-card glass-panel highlight-blue">
+                        <div class="stat-icon"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Income</h3>
+                            <h2 id="tot-income">₹0</h2>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel highlight-red">
+                        <div class="stat-icon"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Expense</h3>
+                            <h2 id="tot-expense">₹0</h2>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel highlight-green">
+                        <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-info">
+                            <h3>Net Balance</h3>
+                            <h2 id="tot-balance">₹0</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-banner glass-panel" id="smart-insights">
+                    <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div class="insight-text">
+                        <h4>Smart Insight</h4>
+                        <p id="insight-msg">Analyzing your spending patterns...</p>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="charts-grid">
+                    <div class="chart-container glass-panel">
+                        <h3>Expenses by Category</h3>
+                        <div class="canvas-wrap">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container glass-panel">
+                        <h3>Cash Flow Overview</h3>
+                        <div class="canvas-wrap">
+                            <canvas id="cashflowChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSACTIONS VIEW -->
+            <div id="view-transactions" class="view">
+                <div class="action-bar glass-panel">
+                    <h2>Recent Transactions</h2>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary"
+                            onclick="document.getElementById('upload-csv-modal').classList.add('show')"><i
+                                class="fa-solid fa-upload"></i> Upload CSV</button>
+                        <button class="btn btn-primary"
+                            onclick="document.getElementById('add-tx-modal').classList.add('show')"><i
+                                class="fa-solid fa-plus"></i> Add Manual</button>
+                    </div>
+                </div>
+
+                <div class="table-container glass-panel">
+                    <table class="tx-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tx-tbody">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- GOALS VIEW -->
+            <div id="view-goals" class="view">
+                <div class="action-bar glass-panel">
+                    <h2>Financial Goals</h2>
+                    <button class="btn btn-primary"
+                        onclick="document.getElementById('add-goal-modal').classList.add('show')"><i
+                            class="fa-solid fa-plus"></i> New Goal</button>
+                </div>
+
+                <div class="goals-grid" id="goals-container">
+                    <!-- Dynamic Goals -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <!-- Add Transaction Modal -->
+    <div class="modal-overlay" id="add-tx-modal">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Add Transaction</h3>
+                <button class="close-modal"
+                    onclick="document.getElementById('add-tx-modal').classList.remove('show')"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="tx-form">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Type</label>
+                        <select id="tx-type" required>
+                            <option value="Expense">Expense</option>
+                            <option value="Income">Income</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Amount (₹)</label>
+                        <input type="number" id="tx-amount" min="1" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Category</label>
+                    <select id="tx-category" required>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Income">Income</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" id="tx-date" required>
+                </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <input type="text" id="tx-desc" placeholder="E.g. Groceries at Walmart" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Upload CSV Modal -->
+    <div class="modal-overlay" id="upload-csv-modal">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Upload Bank Statement</h3>
+                <button class="close-modal"
+                    onclick="document.getElementById('upload-csv-modal').classList.remove('show')"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="csv-form">
+                <p class="subtitle mb-1">Upload a CSV file containing: Date, Description, Amount.</p>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="csv-file"
+                        accept=".csv, text/csv, application/csv, text/x-csv, application/x-csv, text/comma-separated-values, text/x-comma-separated-values"
+                        required>
+                    <div class="upload-placeholder">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Click to select CSV</p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Upload & Auto-categorize</button>
+                <div id="upload-status" class="mt-1"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div class="modal-overlay" id="add-goal-modal">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>Set Financial Goal</h3>
+                <button class="close-modal"
+                    onclick="document.getElementById('add-goal-modal').classList.remove('show')"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="goal-form">
+                <div class="input-group">
+                    <label>Goal Name</label>
+                    <input type="text" id="goal-name" placeholder="E.g. Buy a Laptop" required>
+                </div>
+                <div class="input-group">
+                    <label>Target Amount (₹)</label>
+                    <input type="number" id="goal-target" min="1" required>
+                </div>
+                <div class="input-group">
+                    <label>Target Date</label>
+                    <input type="date" id="goal-date" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Create Goal</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
