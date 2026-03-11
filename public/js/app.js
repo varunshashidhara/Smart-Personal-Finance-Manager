@@ -10,6 +10,7 @@ let appState = {
 // DOM Elements
 const els = {
     screens: {
+        welcome: document.getElementById('welcome-screen'),
         auth: document.getElementById('auth-screen'),
         dashboard: document.getElementById('dashboard-screen')
     },
@@ -48,16 +49,24 @@ const checkAuth = () => {
     } else {
         localStorage.removeItem('token');
         appState.isAuthenticated = false;
-        showAuth();
+        showWelcome();
     }
+};
+
+const showWelcome = () => {
+    els.screens.dashboard.classList.remove('active');
+    els.screens.auth.classList.remove('active');
+    els.screens.welcome.classList.add('active');
 };
 
 const showAuth = () => {
     els.screens.dashboard.classList.remove('active');
+    els.screens.welcome.classList.remove('active');
     els.screens.auth.classList.add('active');
 };
 
 const showDashboard = async () => {
+    els.screens.welcome.classList.remove('active');
     els.screens.auth.classList.remove('active');
     els.screens.dashboard.classList.add('active');
 
@@ -255,6 +264,11 @@ window.addFundsToGoal = async (id) => {
 };
 
 // --- EVENTS ---
+
+// Welcome Listener
+document.getElementById('get-started-btn').addEventListener('click', () => {
+    showAuth();
+});
 
 // Auth Listeners
 document.getElementById('login-tab').addEventListener('click', (e) => {
