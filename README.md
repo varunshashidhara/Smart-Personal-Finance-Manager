@@ -6,7 +6,7 @@ The platform provides secure authentication, financial data visualization, and C
 
 ## Live Demo
 
-🔗 **[Live Production App](https://smart-personal-finance-manager-vrlu.onrender.com/)** *(Note: The free Render tier may take 1-2 minutes to wake up on the first visit).*
+🔗 **[Live Production](https://smart-personal-finance-manager.onrender.com/)** *(Note: The free Render tier may take 1-2 minutes to wake up on the first visit).*
 
 ## Screenshots
 
