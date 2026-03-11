@@ -4,6 +4,14 @@ A full-stack fintech web application that helps users track expenses, manage bud
 
 The platform provides secure authentication, financial data visualization, and CSV-based bulk transaction imports to simplify personal financial management.
 
+## Highlights
+
+- **Full-stack fintech application** built with Node.js, Express, and MongoDB  
+- **Secure authentication** using JWT and bcrypt  
+- **Interactive financial analytics dashboard** with Chart.js  
+- **CSV bulk transaction import** with automatic categorization  
+- **Cloud deployment** using Render and MongoDB Atlas
+
 ## Live Demo
 
 🔗 **[Live Production](https://smart-personal-finance-manager.onrender.com/)** *(Note: The free Render tier may take 1-2 minutes to wake up on the first visit).*
@@ -58,6 +66,17 @@ Node.js + Express REST API
 MongoDB Database (MongoDB Atlas)
         ↓
 Cloud Deployment (Render)
+```
+
+## Project Structure
+
+```text
+models/        → Mongoose database schemas  
+routes/        → Express API endpoints  
+middleware/    → Authentication middleware  
+public/        → Frontend files (HTML, CSS, JS)  
+uploads/       → Temporary CSV storage  
+server.js      → Main server entry point
 ```
 
 ## Getting Started Locally
