@@ -234,6 +234,14 @@ select:focus {
 }
 
 /* === WELCOME SCREEN === */
+.welcome-nav.auth-nav {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: 2rem;
+}
+
 .welcome-container {
     padding: 2rem;
     max-width: 900px;
@@ -324,12 +332,25 @@ select:focus {
 }
 
 @media (max-width: 768px) {
+    .welcome-container {
+        padding: 1.5rem 1rem;
+        overflow-x: hidden;
+    }
+
+    .welcome-nav.auth-nav {
+        margin-bottom: 1rem;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
     }
 }
 
