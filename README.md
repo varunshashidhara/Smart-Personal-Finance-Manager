@@ -14,7 +14,9 @@ The platform provides secure authentication, financial data visualization, and C
 
 ## Live Demo
 
-🔗 **[Live Production](https://smart-personal-finance-manager.onrender.com/)** *(Note: The free Render tier may take 1-2 minutes to wake up on the first visit).*
+🔗 https://smart-personal-finance-manager-vrlu.onrender.com/
+
+*Note: The free Render tier may take 1-2 minutes to wake up on the first visit.*
 
 ## Screenshots
 
@@ -110,6 +112,13 @@ Make sure you have Node.js and MongoDB installed on your local machine.
    node server.js
    ```
    The server will start running on `http://localhost:5000`. Navigation is handled directly through the root port.
+
+## Future Improvements
+
+- **AI-powered expense categorization**
+- **Fraud detection** using anomaly detection models
+- **Email notifications** for budget limits
+- **Mobile app version** of the platform
 
 ## License
 This project is licensed under the MIT License. 
