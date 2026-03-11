@@ -1,44 +1,66 @@
 # Smart Personal Finance Manager
 
-A comprehensive full-stack web application designed to help users track personal expenses, manage budgets, set financial goals, and visualize their spending habits.
+A full-stack fintech web application that helps users track expenses, manage budgets, set financial goals, and analyze spending patterns through interactive dashboards.
 
-## Features
+The platform provides secure authentication, financial data visualization, and CSV-based bulk transaction imports to simplify personal financial management.
 
-- **User Authentication**: Secure sign-up and login functionality using JWT (JSON Web Tokens) and bcrypt for password hashing.
-- **Transaction Management**: Add, edit, delete, and view income and expense transactions.
-- **Budgeting & Goals**: Set financial goals and budgets to track your progress and stay within limits.
-- **Data Visualization**: Gain insights into your financial health with charts and visual breakdowns of your spending.
-- **Bulk Import**: Easily import your transactions via CSV files.
+## Live Demo
+
+🔗 **[Live Production App](https://smart-personal-finance-manager-vrlu.onrender.com/)** *(Note: The free Render tier may take 1-2 minutes to wake up on the first visit).*
+
+## Screenshots
+
+### Welcome Entry
+![Welcome Screen](screenshots/welcome.png)
+
+### Dashboard Visual Analytics
+![Dashboard](screenshots/dashboard.png)
+
+### Transaction Manager
+![Transactions](screenshots/transactions.png)
+
+## Key Features
+
+- **Secure user authentication** with JWT and bcrypt password hashing.
+- **Track income and expense transactions** cleanly and efficiently.
+- **Financial goal and budget management** with dynamic progress tracking.
+- **Interactive dashboards** featuring Chart.js visual financial insights.
+- **CSV bulk transaction import** capable of auto-categorizing entire bank statements.
+- **Responsive glassmorphism UI** natively optimized for both desktop and mobile views.
 
 ## Tech Stack
 
-This project is built using the **MERN** stack (focusing on Node, Express, and MongoDB for the backend):
+### Backend
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- JWT Authentication
+- bcrypt.js
+- multer & csv-parser
 
-**Backend:**
-- **Node.js** & **Express.js**: RESTful API structure.
-- **MongoDB** & **Mongoose**: NoSQL database and object modeling.
-- **JWT (jsonwebtokn)**: Secure user session management.
-- **bcryptjs**: Secure password hashing.
-- **multer** & **csv-parser**: For handling file uploads and parsing imported CSV transaction data.
-- **dotenv**: Environment variable management.
+### Frontend
+- HTML5
+- CSS3 (Flexbox, Grid, & CSS Variables)
+- Vanilla JavaScript
+- Chart.js
 
-**Frontend:**
-- HTML, CSS, JavaScript (Vanilla setup in the `public` directory)
-- Chart.js (or similar library) for visual data representations.
+### Deployment
+- Render (Backend & Static Hosting)
+- MongoDB Atlas (Cloud Database)
 
-## Project Structure
+## System Architecture
 
 ```text
-├── models/         # Mongoose database schemas (User, Transaction, Goals, etc.)
-├── routes/         # Express API routes (Auth, Transactions, Uploads, etc.)
-├── middleware/     # Custom middleware (like JWT authentication guards)
-├── public/         # Frontend static files (HTML, CSS, JS)
-├── uploads/        # Directory for temporarily storing uploaded CSV files
-├── server.js       # Main application entry point
-└── package.json    # Project dependencies and scripts
+Frontend (HTML/CSS/JS)
+        ↓
+Node.js + Express REST API
+        ↓
+MongoDB Database (MongoDB Atlas)
+        ↓
+Cloud Deployment (Render)
 ```
 
-## Getting Started
+## Getting Started Locally
 
 ### Prerequisites
 Make sure you have Node.js and MongoDB installed on your local machine.
@@ -57,7 +79,7 @@ Make sure you have Node.js and MongoDB installed on your local machine.
    ```
 
 3. **Set up environment variables**
-   Create a `.env` file in the root directory and add the following variables:
+   Create a `.env` file in the root directory:
    ```env
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
@@ -68,15 +90,9 @@ Make sure you have Node.js and MongoDB installed on your local machine.
    ```bash
    node server.js
    ```
-   The server will start running, typically on `http://localhost:5000`. You can access the frontend by navigating to that URL in your browser.
-
-## API Endpoints (Overview)
-- `/api/auth` - Register, Login, and User management.
-- `/api/transactions` - CRUD operations for user expenses and income.
-- `/api/goals` - Manage financial goals and budgets.
-- `/api/upload` - CSV file uploading for bulk transaction imports.
+   The server will start running on `http://localhost:5000`. Navigation is handled directly through the root port.
 
 ## License
 This project is licensed under the MIT License. 
 
-Developed By Varun S
+Developed By Varun S.
