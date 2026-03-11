@@ -110,6 +110,14 @@ const loadDashboardData = async () => {
         const data = await api.analytics.getOverview();
         appState.analytics = data;
 
+        // Also fetch user profile info if we don't have it (optional endpoint in many setups)
+        // Since we don't have a dedicated /auth/me endpoint defined in api.js,
+        // we will use the name from local storage if available, or fallback to 'User'
+        const storedName = localStorage.getItem('userName');
+        if (storedName) {
+            document.getElementById('user-display-name').innerText = storedName;
+        }
+
         // Render stats
         document.getElementById('tot-income').innerText = formatCurrency(data.totalIncome);
         document.getElementById('tot-expense').innerText = formatCurrency(data.totalExpense);
@@ -296,8 +304,10 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         const data = await api.auth.login({ email, password });
         localStorage.setItem('token', data.token);
 
-        // Mock setting username from email
-        document.getElementById('user-display-name').innerText = email.split('@')[0];
+        // Store name if available from login response, else use email prefix
+        const nameToStore = data.user?.name || email.split('@')[0];
+        localStorage.setItem('userName', nameToStore);
+        document.getElementById('user-display-name').innerText = nameToStore;
 
         checkAuth();
     } catch (err) {
@@ -314,6 +324,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     try {
         const data = await api.auth.register({ name, email, password });
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userName', name);
         document.getElementById('user-display-name').innerText = name;
         checkAuth();
     } catch (err) {
